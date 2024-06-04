@@ -1,4 +1,4 @@
-# CIVIO-PGEs- #
+# Fundación CIVIO #
 
 La Fundación CIVIO es una entidad sin ánimo de lucro orientada a la prestación de servicios de información e investigación periodística en España. Su objetivo fundamental está orientado a mejorar la transparencia y la veracidad en la comunicación de la actividad de los Gobiernos e instituciones en nuestro país (https://civio.es/nosotros/). 
 
