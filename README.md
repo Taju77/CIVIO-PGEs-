@@ -8,9 +8,3 @@ La organización, aunque dedicada a la emisión de artículos de opinión y otra
 En concreto, en este proyecto trabajaremos con una Base de Datos que recoge información acerca de las partidas aprobadas en los Presupuestos Generales del Estado (PGEs) entre los años 2007 a 2023. La base de datos se puede solicitar previo contacto por correo electrónico en el siguiente enlace:
 
 https://datos.civio.es/dataset/presupuestos-generales-del-estado/
-
-
-
-## Proyecto de Análisis de Datos ##
-
-En la base de datos de los PGEs podemos encontrar una serie de características 
