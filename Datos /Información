@@ -1,1 +1,26 @@
-# Proyecto
+Los datos brutos originales ofrecidos por CIVIO han sido recogidos en las carpetas del apartado de Datos. 
+
+Aquí podemos encontrar información acerca de la clasificación Económica, Funcional y Orgánica 
+de los Presupuestos Generales del Estado (PGEs) para cada año. La utilidad de estos archivos
+radica en la posibilidad de comprobar la denominación legal de cada una de las partidas de Gastos e Ingresos,
+el tipo de operaciones financieras en las que se enmarcan (COFOG) 
+así como también las entidades y organismos de las Administraciones Públicas o AA.PP. 
+(Gobierno Central/Comunidades Autónomas o CC.AA./Entidades y Corporaciones Locales o CC.LL.) 
+asociados a la realización esas operaciones. 
+
+Las tres categorías de clasificación de las Administraciones Públicas se relacionan
+entre ellas en cuanto al "Qué", el "Cómo" y el "Quién" de las operaciones financieras del Estado.
+
+Los archivos que tienen estas categorías de clasificación se ofrecen en formato CSV
+
+
+
+Dentro de la Clasificación Económica tenemos los apartados de "INGRESOS" y "GASTOS" que reflejan las 
+operaciones financieras de las AA.PP. Los datos referentes a estos apartados se han limpiado y transformado previamente
+para ofrecerlos en un formato completo y consistente (Excel).
+
+- El apartado de INGRESOS contiene información acerca de todos los tributos (impuestos, tasas, cotizaciones sociales, etc.)
+recaudados por parte de los distintos organismos de las AA.PP. en cada ejercicio
+
+- El apartado de GASTOS contiene información acerca de todas las partidas presupuestarias (Pensiones, Sanidad, Educación, etc.)
+a las que se han destinado los recursos por parte de las AA.PP. en cada ejercicio.
