@@ -8,3 +8,15 @@ La organización, aunque dedicada a la emisión de artículos de opinión y otra
 En concreto, en este proyecto trabajaremos con una Base de Datos que recoge información acerca de las partidas aprobadas en los Presupuestos Generales del Estado (PGEs) entre los años 2007 a 2022, que fue cuando se realizó este análisis para todas las partidas disponibles. La base de datos se puede solicitar previo contacto por correo electrónico en el siguiente enlace:
 
 https://datos.civio.es/dataset/presupuestos-generales-del-estado/
+
+
+El proyecto de análisis se dividirá en 2 fases fundamentales:
+
+1. Evolución de los Gastos e Ingresos Totales de las Administraciones Públicas (2007-2022)
+- Impuestos Directos (IRPF-IS)
+- Impuestos Indirectos (IVA)
+- Cotizaciones a la Seguridad Social
+  
+
+2. Composición de los Ingresos y Gastos en el último año disponible (2023)
+
