@@ -49,7 +49,10 @@ El proyecto de análisis se dividirá en 2 fases fundamentales:
 
 
 
-Este ejercicio de análisis está enfocado a dar una visión acerca de las principales fuentes de recursos financieros que han obtenido las Administraciones Públicas o AA.PP. (Gobierno Central + Comunidades Autónomas o CC.AA. + Corporaciones Locales o CC.LL. + Seguridad Social etc.) a lo largo de la última década y de dónde los obtienen en la actualidad. 
+Este ejercicio de análisis pretende dar una visión acerca de las principales fuentes de recursos financieros que han obtenido las Administraciones Públicas o AA.PP. a lo largo de la última década y de dónde los obtienen en la actualidad. 
+
+Cuando nos referimos a AA.PP. queremos decir todos los organismos asociados al Estado
+(Gobierno Central + Comunidades Autónomas o CC.AA. + Corporaciones Locales o CC.LL. + Seguridad Social etc.) 
 
 Los principales productos estadísticos utilizados para este análisis han consistido en una serie de datos tabulares en formato Excel/CSV que os dejo adjuntos en la pestaña "Datos" de igual forma que los originales que encontraréis en el repositorio de GitHub de CIVIO. En estas tablas se contiene información acerca de las siguientes variables:
 
