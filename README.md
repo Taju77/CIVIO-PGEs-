@@ -23,12 +23,12 @@ El proyecto de análisis se dividirá en 2 fases fundamentales:
 
 1. Evolución de los Ingresos Públicos Totales recaudados por parte de las Administraciones Públicas (2007-2022)
 
-* IMPUESTOS DIRECTOS * 
+* IMPUESTOS DIRECTOS 
   - Impuesto sobre la Renta de las Personas Físicas (IRPF)
   - Impuesto sobre Sociedades (IS)
   - Cotizaciones Sociales (CC.SS.)
 
-* IMPUESTOS INDIRECTOS *
+* IMPUESTOS INDIRECTOS 
   - Impuesto sobre el Valor Añadido (IVA)
   - Impuestos sobre Hidrocarburos
   - Impuestos sobre el Tabaco y Bebidas Alcohólicas 
@@ -36,10 +36,10 @@ El proyecto de análisis se dividirá en 2 fases fundamentales:
 
 2. Evolución del Gasto Público Total presupuestado por parte de las AA.PP. (2007-2022)
 
-GASTO EN PENSIONES
-GASTO EN EDUCACIÓN
-GASTO EN SALUD Y SANIDAD
-GASTO MILITAR EN DEFENSA
+* GASTO EN PENSIONES
+* GASTO EN EDUCACIÓN
+* GASTO EN SALUD Y SANIDAD
+* GASTO MILITAR EN DEFENSA
 
 
 3. Ranking de Comparación y Composición de los Ingresos y Gastos en el último año disponible (2023)
