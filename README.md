@@ -1,11 +1,11 @@
-# CIVIO-PGEs- #
+# CIVIO -Presupuestos Generales del Estado (PGE)- Base de Datos#
 
-La Fundación CIVIO es una entidad sin ánimo de lucro orientada a la prestación de servicios de información e investigación periodística en España. Su objetivo fundamental está orientado a mejorar la transparencia y la veracidad en la comunicación de la actividad de los Gobiernos e instituciones en nuestro país (https://civio.es/nosotros/). 
+La Fundación CIVIO es una entidad sin ánimo de lucro orientada a la prestación de servicios de información e investigación periodística en España. Su objetivo fundamental está orientado a mejorar la transparencia y la veracidad en la comunicación de la actividad por parte de las instituciones públicas y privadas de nuestro país (https://civio.es/nosotros/). 
 
-La organización, aunque dedicada a la emisión de artículos de opinión y otras piezas informativas, también posee una base de datos abierta al público (https://datos.civio.es/) donde se puede encontrar información referente a muy diversas temáticas (Funcionamiento de Instituciones, Recursos Sanitarios, Medio Ambiente y Meteorología, Sanidad, Indicadores de Poder Político, Procesos de Contratación Pública, Justicia, Transparencia, etc.).
+La organización, aunque dedicada a la emisión de artículos de opinión y otras piezas informativas, también posee diversas bases de datos abiertas al público (https://datos.civio.es/) donde se puede encontrar información de muy diversa índole (Funcionamiento de Instituciones, Recursos Sanitarios, Medio Ambiente y Meteorología, Sanidad, Indicadores de Poder Político, Procesos de Contratación Pública, Justicia, Transparencia, etc.).
 
 
-En concreto, en este proyecto trabajaremos con una Base de Datos que recoge información acerca de las partidas aprobadas en los Presupuestos Generales del Estado (PGEs) entre los años 2007 a 2022, que fue cuando se realizó este análisis para todas las partidas disponibles. La base de datos se puede solicitar previo contacto por correo electrónico en el siguiente enlace:
+En concreto, en este proyecto trabajaremos con una Base de Datos que recoge información acerca de las partidas aprobadas en los Presupuestos Generales del Estado (PGEs) desde el año 2007 hasta el año 2022, cuando se realizó este análisis para todas las partidas disponibles. La base de datos se puede solicitar previo contacto por correo electrónico en el siguiente enlace:
 
 https://datos.civio.es/dataset/presupuestos-generales-del-estado/
 
@@ -48,9 +48,23 @@ GASTO MILITAR EN DEFENSA
 
 
 
-Este ejercicio de análisis está enfocado a dar una visión acerca de las principales fuentes de recursos financieros que han obtenido las AA.PP. a lo largo de la última década y de dónde los obtienen en la actualidad. 
+Este ejercicio de análisis está enfocado a dar una visión acerca de las principales fuentes de recursos financieros que han obtenido las Administraciones Públicas o AA.PP. (Gobierno Central + Comunidades Autónomas o CC.AA. + Corporaciones Locales o CC.LL. + Seguridad Social etc.) a lo largo de la última década y de dónde los obtienen en la actualidad. 
 
-Los principales productos estadísticos utilizados para este análisis han consistido en una serie de datos tabulares en formato Excel/CSV que os dejo adjuntos en la pestaña "Datos" de igual forma que los originales que encontraréis en el repositorio de GitHub de CIVIO. Si os dais cuenta, disponéis de una serie de gráficos de análisis con tablas y gráficos dinámicos en los apartados "Ingresos" y "Gastos" donde podéis descargar una base de datos unificada personalmente por mí donde se contienen todas las observaciones asociadas a los archivos originales para cada año y contingencia. 
+Los principales productos estadísticos utilizados para este análisis han consistido en una serie de datos tabulares en formato Excel/CSV que os dejo adjuntos en la pestaña "Datos" de igual forma que los originales que encontraréis en el repositorio de GitHub de CIVIO. En estas tablas se contiene información acerca de las siguientes variables:
+
+-----------------------------------------------------------------------------------------------------------------------------
+- EJERCICIO: Período al que son imputables las operaciones financieras
+- CENTRO GESTOR: Organismo que realiza la operación
+  
+- FUNCIONAL: Código de identificación de la operación según su Estructura Funcional o COFOG
+(https://www.hacienda.gob.es/es-ES/CDI/Paginas/ContabilidadNacional/COFOG/Clasificacion-funcional-del-gasto-de-las-Administraciones-Publicas.aspx)
+- ECONÓMICA: Código de identificación de la operación según su Estructura Económica
+(https://www.sepg.pap.hacienda.gob.es/sitios/sepg/es-ES/Presupuestos/PGE/ProyectoPGE2022/Documents/LIBROSALMON2022.pdf)
+
+- DESCRIPCIÓN: Nombre del organismo o entidad pública que realiza la operación 
+-----------------------------------------------------------------------------------------------------------------------------
+
+Si os fijáis, disponéis de una serie de gráficos de análisis con tablas y gráficos dinámicos en los apartados "Ingresos" y "Gastos" donde podéis descargar unas bases de datos unificadas personalmente por mí donde se contienen todas las observaciones de los archivos originales para cada año y contingencia. 
 Gracias a esta herramienta podréis extraer vuestras propias conclusiones acerca de los datos brutos.   
 
 Además, tengo que comentaros que he desarrollado una serie de "chunks" de código equivalente tanto en lenguaje R como en Python para realizar el análisis de los gráficos de forma equivalente por vuestra cuenta.
