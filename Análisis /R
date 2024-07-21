@@ -1,0 +1,364 @@
+
+#### Instalar y cargar las librerías necesarias ####
+install.packages("readxl")
+install.packages("purrr")
+install.packages("ggplot2")
+install.packages("treemap")
+
+library(readxl)
+library(purrr)
+library(ggplot2)
+library(treemap)
+
+
+#### Definir la ruta del archivo de Excel ####
+ruta_ingresos <- "D:/ANÁLISIS/PRESUPUESTOS GENERALES DEL ESTADO (PGE)/CIVIO/DATOS/ANÁLISIS/ingresos.xlsx"
+ruta_gastos <- "D:/ANÁLISIS/PRESUPUESTOS GENERALES DEL ESTADO (PGE)/CIVIO/DATOS/ANÁLISIS/gastos.xlsx"
+
+
+#### ANÁLISIS DE DATOS ####
+
+
+# Cargar los datos de la hoja "ingresos"
+datos_ingresos <- read_excel(ruta_ingresos, sheet = "ingresos")
+datos_gastos <- read_excel(ruta_gastos, sheet = "gastos")
+
+# Mostrar las primeras filas del dataframe
+head(datos_ingresos, 20)
+head(datos_gastos, 20)
+
+
+
+#### VISUALIZACIÓN DE DATOS ####
+
+#### - INGRESOS - ####
+# Evolución de los Ingresos Públicos Totales
+ggplot(datos_ingresos, aes(x = Año, y = `INGRESOS PÚBLICOS TOTALES`)) +
+  geom_line(color = "#007BFF") +
+  geom_point(color = "darkblue") +
+  ggtitle("Evolución de los Ingresos Públicos Totales en España") +
+  xlab("Año") +
+  ylab("Ingresos Públicos Totales (millones de €)") +
+  theme_minimal()
+
+
+#### - IMPUESTOS DIRECTOS - ####
+
+
+# - Evolución de los Impuestos Directos 
+ggplot(datos_ingresos, aes(x = Año, y = `IMPUESTOS DIRECTOS`)) +
+  geom_line(color = "blue") +
+  geom_point(color = "darkblue") +
+  ggtitle("Evolución de la Recaudación por Impuestos Directos en España") +
+  xlab("Año") +
+  ylab("Impuestos Directos (millones de €)") +
+  theme_minimal()
+
+# 1. Evolución del Impuesto sobre la Renta de las Personas Fïsicas (IRPF)
+ggplot(datos_ingresos, aes(x = Año, y = `IRPF`)) +
+  geom_line(color = "lightblue") +
+  geom_point(color = "darkblue") +
+  ggtitle("Evolución de la Recaudación por IRPF en España") +
+  xlab("Año") +
+  ylab("Impuesto sobre la Renta de las Personas Físicas (millones de €)") +
+  theme_minimal()
+
+# 2. Evolución del Impuesto sobre Sociedades (IS)
+ggplot(datos_ingresos, aes(x = Año, y = `IS`)) +
+  geom_line(color = "red") +
+  geom_point(color = "darkblue") +
+  ggtitle("Evolución de la Recaudación por IS en España") +
+  xlab("Año") +
+  ylab("Impuesto sobre Sociedades (millones de €)") +
+  theme_minimal()
+
+# 3. Evolución de las Cotizaciones Sociales (CCSS)
+ggplot(datos_ingresos, aes(x = Año, y = `CCSS`)) +
+  geom_line(color = "blue") +
+  geom_point(color = "darkblue") +
+  ggtitle("Evolución de la Recaudación por CCSS en España") +
+  xlab("Año") +
+  ylab("Cotizaciones Sociales (millones de €)") +
+  theme_minimal()
+
+
+#### ---- CONJUNTO IMPUESTOS DIRECTOS ---- ####
+
+# Gráfico conjunto de Impuestos Directos
+ggplot(datos_ingresos) +
+  geom_line(aes(x = Año, y = IRPF, color = "IRPF"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = IRPF, color = "IRPF")) +
+  geom_line(aes(x = Año, y = `IS`, color = "IS"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `IS`, color = "IS")) +
+  geom_line(aes(x = Año, y = `CCSS`, color = "CCSS"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `CCSS`, color = "CCSS")) +
+  ggtitle("Evolución de la Recaudación en España por componentes de Impuestos Directos") +
+  xlab("Año") +
+  ylab("Recaudación (millones de €)") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() +
+  scale_color_manual(values = c("CCSS" = "blue", 
+                                "IRPF" = "lightblue", 
+                                "IS" = "red")) +
+  theme(legend.title = element_blank()) +
+  theme(
+    plot.title = element_text(size = 8),  # Ajustar tamaño del texto del título
+    legend.text = element_text(size = 8),  # Ajustar tamaño del texto de la leyenda
+    axis.title.x = element_text(size = 8),  # Ajustar tamaño del texto del título del eje x
+    axis.title.y = element_text(size = 8),  # Ajustar tamaño del texto del título del eje y
+    axis.text.x = element_text(size = 8),  # Ajustar tamaño de los valores del eje x
+    axis.text.y = element_text(size = 8)   # Ajustar tamaño de los valores del eje y
+  )
+
+
+
+#### - IMPUESTOS INDIRECTOS - ####
+
+
+# - IMPUESTOS INDIRECTOS 
+ggplot(datos_ingresos, aes(x = Año, y = IVA)) +
+  geom_line(color = "#DC143C") +
+  geom_point(color = "#FF0000") +
+  ggtitle("Evolución de la Recaudación del IVA en España") +
+  xlab("Año") +
+  ylab("IVA (millones de €)") +
+  theme_minimal()
+
+
+# 2. Evolución de la Recaudación del IVA
+ggplot(datos_ingresos, aes(x = Año, y = IVA)) +
+  geom_line(color = "#FF0000") +
+  geom_point(color = "#FF0000") +
+  ggtitle("Evolución de la Recaudación del IVA en España") +
+  xlab("Año") +
+  ylab("IVA (millones de €)") +
+  theme_minimal()
+
+# 3. Evolución de la Recaudación asociada a Impuestos sobre Hidrocarburos
+ggplot(datos_ingresos, aes(x = Año, y = `Impuestos sobre Hidrocarburos`)) +
+  geom_line(color = "darkgrey") +
+  geom_point(color = "#FF0000") +
+  ggtitle("Evolución de la Recaudación asociada a Impuestos sobre Hidrocarburos en España") +
+  xlab("Año") +
+  ylab("Impuestos sobre Hidrocarburos (millones de €)") +
+  theme_minimal()
+
+# 4. Evolución de la Recaudación asociada a Impuestos sobre el Tabaco
+ggplot(datos_ingresos, aes(x = Año, y = `Impuestos sobre el Tabaco`)) +
+  geom_line(color = "#8B0000") +
+  geom_point(color = "#FF2400") +
+  ggtitle("Evolución de la Recaudación asociada a Impuestos sobre el Tabaco en España") +
+  xlab("Año") +
+  ylab("Impuestos sobre el Tabaco (millones de €)") +
+  theme_minimal()
+
+# 5. Evolución de la Recaudación asociada a Impuestos sobre Bebidas Alcohólicas
+ggplot(datos_ingresos, aes(x = Año, y = `Impuestos sobre Bebidas Alcohólicas`)) +
+  geom_line(color = "#FFD700") +
+  geom_point(color = "#FF0000") +
+  ggtitle("Evolución de la Recaudación asociada a Impuestos sobre Bebidas Alcohólicas en España") +
+  xlab("Año") +
+  ylab("Impuestos sobre Bebidas Alcohólicas (millones de €)") +
+  theme_minimal()
+
+
+#### ---- CONJUNTO IMPUESTOS INDIRECTOS ---- ####
+
+# Gráfico conjunto de Impuestos Indirectos
+ggplot(datos_ingresos) +
+  geom_line(aes(x = Año, y = `IVA`, color = "IVA"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `IVA`, color = "IVA")) +
+  geom_line(aes(x = Año, y = `Impuestos sobre Hidrocarburos`, color = "Impuestos sobre Hidrocarburos"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `Impuestos sobre Hidrocarburos`, color = "Impuestos sobre Hidrocarburos")) +
+  geom_line(aes(x = Año, y = `Impuestos sobre el Tabaco`, color = "Impuestos sobre el Tabaco"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `Impuestos sobre el Tabaco`, color = "Impuestos sobre el Tabaco")) +
+  geom_line(aes(x = Año, y = `Impuestos sobre Bebidas Alcohólicas`, color = "Impuestos sobre Bebidas Alcohólicas"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `Impuestos sobre Bebidas Alcohólicas`, color = "Impuestos sobre Bebidas Alcohólicas")) +
+  ggtitle("Evolución de la Recaudación en España por componentes de Impuestos Indirectos") +
+  xlab("Año") +
+  ylab("Recaudación (millones de €)") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() +
+  scale_color_manual(values = c("IVA" = "#FF0000", 
+                                "Impuestos sobre Hidrocarburos" = "darkgrey", 
+                                "Impuestos sobre el Tabaco" = "#8B0000", 
+                                "Impuestos sobre Bebidas Alcohólicas" = "#FFD700")) +
+  theme(legend.title = element_blank()) +
+  theme(
+    plot.title = element_text(size = 8),  # Ajustar tamaño del texto del título
+    legend.text = element_text(size = 8),  # Ajustar tamaño del texto de la leyenda
+    axis.title.x = element_text(size = 8),  # Ajustar tamaño del texto del título del eje x
+    axis.title.y = element_text(size = 8),  # Ajustar tamaño del texto del título del eje y
+    axis.text.x = element_text(size = 8),  # Ajustar tamaño de los valores del eje x
+    axis.text.y = element_text(size = 8)   # Ajustar tamaño de los valores del eje y
+  )
+
+
+#### - GASTOS - ####
+
+# Evolución del Gasto Público Total
+ggplot(datos_gastos, aes(x = Año, y = `GASTO PÚBLICO TOTAL`)) +
+  geom_line(color = "red") +
+  geom_point(color = "brown") +
+  ggtitle("Evolución del Gasto Público Total en España") +
+  xlab("Año") +
+  ylab("Gasto Público Total (millones de €)") +
+  theme_minimal()
+
+# 1. Evolución del Gasto en Pensiones 
+ggplot(datos_gastos, aes(x = Año, y = `GASTO EN PENSIONES`)) +
+  geom_line(color = "red") +
+  geom_point(color = "red") +
+  ggtitle("Evolución del Gasto Total en Pensiones en España") +
+  xlab("Año") +
+  ylab("Gasto en Pensiones (millones de €)") +
+  theme_minimal()
+
+
+# 2. Evolución del Gasto en Educación 
+ggplot(datos_gastos, aes(x = Año, y = `GASTO EN EDUCACIÓN`)) +
+  geom_line(color = "#FFD700") +
+  geom_point(color = "red") +
+  ggtitle("Evolución del Gasto Total en Pensiones en España") +
+  xlab("Año") +
+  ylab("Gasto en Pensiones (millones de €)") +
+  theme_minimal()
+
+
+# 3. Evolución del Gasto en Salud y Sanidad 
+ggplot(datos_gastos, aes(x = Año, y = `GASTO EN SALUD Y SANIDAD`)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red") +
+  ggtitle("Evolución del Gasto Total en Pensiones en España") +
+  xlab("Año") +
+  ylab("Gasto en Pensiones (millones de €)") +
+  theme_minimal()
+
+
+# 4. Evolución del Gasto Militar en Defensa 
+ggplot(datos_gastos, aes(x = Año, y = `GASTO MILITAR EN DEFENSA`)) +
+  geom_line(color = "darkgreen") +
+  geom_point(color = "red") +
+  ggtitle("Evolución del Gasto Total en Pensiones en España") +
+  xlab("Año") +
+  ylab("Gasto en Pensiones (millones de €)") +
+  theme_minimal()
+
+
+#### ---- GASTOS CONJUNTO ---- ####
+# Gráfico conjunto de partidas presupuestarias de Gastos
+ggplot(datos_gastos) +
+  geom_line(aes(x = Año, y = `GASTO EN PENSIONES`, color = "GASTO EN PENSIONES"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `GASTO EN PENSIONES`, color = "GASTO EN PENSIONES")) +
+  geom_line(aes(x = Año, y = `GASTO EN EDUCACIÓN`, color = "GASTO EN EDUCACIÓN"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `GASTO EN EDUCACIÓN`, color = "GASTO EN EDUCACIÓN")) +
+  geom_line(aes(x = Año, y = `GASTO EN SALUD Y SANIDAD`, color = "GASTO EN SALUD Y SANIDAD"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `GASTO EN SALUD Y SANIDAD`, color = "GASTO EN SALUD Y SANIDAD")) +
+  geom_line(aes(x = Año, y = `GASTO MILITAR EN DEFENSA`, color = "GASTO MILITAR EN DEFENSA"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `GASTO MILITAR EN DEFENSA`, color = "GASTO MILITAR EN DEFENSA")) +
+  ggtitle("Evolución de las partidas presupuestarias en España por componentes del Gasto Público") +
+  xlab("Año") +
+  ylab("Recaudación (millones de €)") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() +
+  scale_color_manual(values = c("GASTO EN PENSIONES" = "red", 
+                                "GASTO EN EDUCACIÓN" = "yellow", 
+                                "GASTO EN SALUD Y SANIDAD" = "blue", 
+                                "GASTO MILITAR EN DEFENSA" = "darkgreen")) +
+  theme(legend.title = element_blank()) +
+  theme(
+    plot.title = element_text(size = 8),  # Ajustar tamaño del texto del título
+    legend.text = element_text(size = 8),  # Ajustar tamaño del texto de la leyenda
+    axis.title.x = element_text(size = 8),  # Ajustar tamaño del texto del título del eje x
+    axis.title.y = element_text(size = 8),  # Ajustar tamaño del texto del título del eje y
+    axis.text.x = element_text(size = 8),  # Ajustar tamaño de los valores del eje x
+    axis.text.y = element_text(size = 8)   # Ajustar tamaño de los valores del eje y
+  )
+
+
+
+#### COMPARACIÓN INGRESOS Y GASTOS (2007-2022) ####
+
+# Unimos los dos dataframes anteriores en un único conjunto de datos
+datos_civio_pge <- merge(datos_ingresos, datos_gastos)
+
+
+# Evolución de Ingresos vs. Gastos
+ggplot(datos_civio_pge) +
+  geom_line(aes(x = Año, y = `GASTO PÚBLICO TOTAL`, color = "GASTO PÚBLICO TOTAL"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `GASTO PÚBLICO TOTAL`, color = "GASTO PÚBLICO TOTAL")) +
+  geom_line(aes(x = Año, y = `INGRESOS PÚBLICOS TOTALES`, color = "INGRESOS PÚBLICOS TOTALES"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `INGRESOS PÚBLICOS TOTALES`, color = "INGRESOS PÚBLICOS TOTALES")) +
+  ggtitle("Evolución de Ingresos y Gastos Públicos Totales en España") +
+  xlab("Año") +
+  ylab("Recaudación y Presupuesto (millones de €)") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() +
+  scale_color_manual(values = c("GASTO PÚBLICO TOTAL" = "red", 
+                                "INGRESOS PÚBLICOS TOTALES" = "blue")) +
+  theme(legend.title = element_blank()) +
+  theme(
+    plot.title = element_text(size = 8),  # Ajustar tamaño del texto del título
+    legend.text = element_text(size = 8),  # Ajustar tamaño del texto de la leyenda
+    axis.title.x = element_text(size = 8),  # Ajustar tamaño del texto del título del eje x
+    axis.title.y = element_text(size = 8),  # Ajustar tamaño del texto del título del eje y
+    axis.text.x = element_text(size = 8),  # Ajustar tamaño de los valores del eje x
+    axis.text.y = element_text(size = 8)   # Ajustar tamaño de los valores del eje y
+  )
+
+
+# Evolución de Compoonentes de Ingresos (Cotizaciones Sociales) vs. Componentes de Gasto (Pensiones)
+ggplot(datos_civio_pge) +
+  geom_line(aes(x = Año, y = `GASTO EN PENSIONES`, color = "GASTO EN PENSIONES"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `GASTO EN PENSIONES`, color = "GASTO EN PENSIONES")) +
+  geom_line(aes(x = Año, y = `CCSS`, color = "CCSS"), linewidth = 0.1) +
+  geom_point(aes(x = Año, y = `CCSS`, color = "CCSS")) +
+  ggtitle("Evolución de Cotizaciones Sociales y Pensiones en España") +
+  xlab("Año") +
+  ylab("Recaudación y Presupuesto (millones de €)") +
+  scale_y_continuous(labels = scales::comma) +
+  theme_minimal() +
+  scale_color_manual(values = c("GASTO EN PENSIONES" = "red", 
+                                "CCSS" = "blue")) +
+  theme(legend.title = element_blank()) +
+  theme(
+    plot.title = element_text(size = 8),  # Ajustar tamaño del texto del título
+    legend.text = element_text(size = 8),  # Ajustar tamaño del texto de la leyenda
+    axis.title.x = element_text(size = 8),  # Ajustar tamaño del texto del título del eje x
+    axis.title.y = element_text(size = 8),  # Ajustar tamaño del texto del título del eje y
+    axis.text.x = element_text(size = 8),  # Ajustar tamaño de los valores del eje x
+    axis.text.y = element_text(size = 8)   # Ajustar tamaño de los valores del eje y
+  )
+
+
+#### AÑO 2023 ####
+
+# Definir la ruta o directorio
+ruta_civio <- "D:/ANÁLISIS/PRESUPUESTOS GENERALES DEL ESTADO (PGE)/CIVIO/DATOS/ANÁLISIS/2023_ingresos.xlsx"
+datos_ingresos_2023 <- read_excel(ruta_civio, sheet="2023_ingresos")
+
+# Hacemos unos treemaps para evidenciar las partidas más importantes del gasto
+# y los ingresos en los últimos Presupuestos Generales del Estado (PGE) disponibles.
+
+
+
+# Crear un vector de colores para las categorías de impuestos (ajustar según tus necesidades)
+colores_ingresos <- c("CCSS" = "#0000FF",
+                      "IRPF" = "#ADD8E6",
+                      "IVA" = "#FF0000",
+                      "IS" = "#DC143C"
+                      )  # Añade más categorías según sea necesario
+
+
+# Mapa de Composición de Ingresos
+treemap(datos_ingresos_2023,
+        index = "Tipo de Impuesto",  # Reemplaza con el nombre real de la columna de categorías
+        vSize = "Recaudación",          # Reemplaza con el nombre real de la columna de valores
+        vColor = "Tipo de Impuesto",
+        palette = colores_ingresos, # Definir la paleta de colores
+        title = "Composición de Ingresos Públicos de los últimos PGE",
+        fontsize.title = 14,          # Tamaño de fuente del título
+        fontsize.labels = 10,         # Tamaño de fuente de las etiquetas
+        border.col = "white",         # Color del borde
+        border.lwds = 0.5           # Ancho del borde
+)
