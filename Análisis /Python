@@ -1,0 +1,285 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Jul 19 12:12:48 2024
+
+@author: Néstor
+"""
+
+### CÓDIGO PARA ANALIZAR LA BASE DE DATOS DE LA FUNDACIÓN CIVIO
+### PRESUPUESTOS GENERALES DEL ESTADO (PGE)
+
+#pip install squarify
+
+# Primero, importamos las librerías necesarias para leer los archivos de Excel
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+from matplotlib.ticker import FuncFormatter
+import squarify
+
+# Segundo, declaramos las rutas de los archivos
+ruta_ingresos = 'ruta_a_tu_archivo/ingresos.xlsx'
+ruta_gastos = 'ruta_a_tu_archivo/gastos.xlsx'
+
+## VISUALIZACIÓN DE DATOS ##
+# Cargamos la tabla específica de nuestra hoja de Excel
+datos_ingresos = pd.read_excel(ruta_ingresos, sheet_name='ingresos')
+datos_gastos = pd.read_excel(ruta_gastos, sheet_name='gastos')
+
+# Display the first few rows to understand its structure
+print(datos_ingresos.head(20))
+print(datos_gastos.head(20))
+
+## Creamos una serie de gráficos de líneas para ver la evolución de las distintas variables
+
+# * PALETA DE COLORES * #
+colores_azules = ['#007BFF', '#4169E1', '#1E90FF', '#1E90FF', '#191970', '#4682B4', '#000080', '#0047AB', '#5F9EA0', '#ADD8E6']
+colores_rojos = ['#FF0000', '#DC143C', '#FF2400', '#FF6347', '#B22222', '#FF7F50', '#CD5C5C', '#800000', '#8B0000', '#8A0707']
+
+# INGRESOS PÚBLICOS TOTALES
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['INGRESOS PÚBLICOS TOTALES'], 
+         color=colores_azules[0], 
+         marker='o', markerfacecolor='darkblue', markeredgecolor='darkblue')
+plt.title('Evolución de los Ingresos Públicos Totales en España')
+plt.xlabel('Año')
+plt.ylabel('Ingresos Públicos Totales (millones de €)')
+plt.grid(True)
+plt.show()
+
+# - IMPUESTOS DIRECTOS
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['IMPUESTOS DIRECTOS'], 
+         color=colores_azules[1], 
+         marker='o', markerfacecolor='darkblue', markeredgecolor='darkblue')
+plt.title('Evolución de la Recaudación por Impuestos Directos en España')
+plt.xlabel('Año')
+plt.ylabel('Impuestos Directos (millones de €)')
+plt.grid(True)
+plt.show()
+
+# 1. IMPUESTO SOBRE LA RENTA DE LAS PERSONAS FÍSICAS (IRPF)
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['IRPF'], 
+         color=colores_azules[9],
+         marker='o', markerfacecolor='darkblue', markeredgecolor='darkblue')
+plt.title('Evolución de la Recaudación por IRPF en España')
+plt.xlabel('Año')
+plt.ylabel('Impuesto sobre la Renta de las Personas Físicas (millones de €)')
+plt.grid(True)
+plt.show()
+
+# 2. IMPUESTO SOBRE SOCIEDADES (IS)
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['IS'], 
+         color=colores_rojos[0],
+         marker='o', markerfacecolor='darkblue', markeredgecolor='darkblue')
+plt.title('Evolución de la Recaudación por Impuesto sobre Sociedades en España')
+plt.xlabel('Año')
+plt.ylabel('Impuesto sobre Sociedades (millones de €)')
+plt.grid(True)
+plt.show()
+
+# 3. COTIZACIONES SOCIALES (CCSS)
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['CCSS'], 
+         color=colores_azules[2],
+         marker='o', markerfacecolor='darkblue', markeredgecolor='darkblue')
+plt.title('Evolución de la Recaudación por Cotizaciones Sociales en España')
+plt.xlabel('Año')
+plt.ylabel('Cotizaciones Sociales (millones de €)')
+plt.grid(True)
+plt.show()
+
+## GRÁFICO CONJUNTO (correr todo de una vez)
+# Crear el gráfico combinado con las tres variables: IRPF, IS y CCSS
+plt.figure(figsize=(14, 8))
+
+# IRPF
+plt.plot(datos_ingresos['Año'], datos_ingresos['IRPF'], 
+         color=colores_azules[9],
+         marker='o', markerfacecolor='darkblue', markeredgecolor='darkblue', label='IRPF')
+
+# IS
+plt.plot(datos_ingresos['Año'], datos_ingresos['IS'], 
+         color=colores_rojos[0],
+         marker='o', markerfacecolor='darkblue', markeredgecolor='darkblue', label='IS')
+
+# CCSS
+plt.plot(datos_ingresos['Año'], datos_ingresos['CCSS'], 
+         color=colores_azules[2],
+         marker='o', markerfacecolor='darkblue', markeredgecolor='darkblue', label='CCSS')
+
+plt.title('Evolución de la Recaudación en España por Impuestos Directos')
+plt.xlabel('Año')
+plt.ylabel('Recaudación (millones de €)')
+plt.grid(True)
+plt.legend()
+
+# Ajustar las etiquetas del eje y para incluir las unidades completas en millones
+plt.ticklabel_format(style='plain', axis='y')
+plt.gca().set_yticklabels(['{:,}'.format(int(x)) for x in plt.gca().get_yticks()])
+
+# Guardar el gráfico en un archivo
+output_path = 'ruta_a_tu_archivo/evolucion_recaudacion_espana.png'
+plt.savefig(output_path)
+plt.close()
+
+# - IMPUESTOS INDIRECTOS
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['IMPUESTOS INDIRECTOS'], 
+         color=colores_rojos[1],
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0])
+plt.title('Evolución de la Recaudación por Impuestos Indirectos en España')
+plt.xlabel('Año')
+plt.ylabel('Impuestos Indirectos (millones de €)')
+plt.grid(True)
+plt.show()
+
+# 1. IMPUESTO SOBRE EL VALOR AÑADIDO (IVA)
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['IVA'], 
+         color=colores_rojos[0],
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0])
+plt.title('Evolución de la Recaudación por IVA en España')
+plt.xlabel('Año')
+plt.ylabel('Impuesto sobre el Valor Añadido (millones de €)')
+plt.grid(True)
+plt.show()
+
+# 2. IMPUESTOS SOBRE HIDROCARBUROS 
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['Impuestos sobre Hidrocarburos'], 
+         color='darkgrey',
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0])
+plt.title('Evolución de la Recaudación asociada a Impuestos sobre Hidrocarburos en España')
+plt.xlabel('Año')
+plt.ylabel('Impuesto sobre Hidrocarburos (millones de €)')
+plt.grid(True)
+plt.show()
+
+# 3. IMPUESTOS SOBRE EL TABACO
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['Impuestos sobre el Tabaco'], 
+         color=colores_rojos[7],
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0])
+plt.title('Evolución de la Recaudación asociada a Impuestos sobre el Tabaco en España')
+plt.xlabel('Año')
+plt.ylabel('Impuesto sobre el Tabaco (millones de €)')
+plt.grid(True)
+plt.show()
+
+# 4. IMPUESTOS SOBRE BEBIDAS ALCOHÓLICAS
+plt.figure(figsize=(10, 6))
+plt.plot(datos_ingresos['Año'], datos_ingresos['Impuestos sobre Bebidas Alcohólicas'], 
+         color='#FFD700',
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0])
+plt.title('Evolución de la Recaudación asociada a Impuestos sobre Bebidas Alcohólicas en España')
+plt.xlabel('Año')
+plt.ylabel('Impuesto sobre Bebidas Alcohólicas (millones de €)')
+plt.grid(True)
+plt.show()
+
+## GRÁFICO CONJUNTO (correr todo de una vez)
+# Crear el gráfico combinado con las tres variables: IVA, IH, IT, IB
+plt.figure(figsize=(14, 8))
+
+# IVA
+plt.plot(datos_ingresos['Año'], datos_ingresos['IVA'], 
+         color=colores_rojos[0],
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0], label='IVA')
+
+# IH 
+plt.plot(datos_ingresos['Año'], datos_ingresos['Impuestos sobre Hidrocarburos'], 
+         color='darkgrey',
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0], label='IH')
+
+# IT
+plt.plot(datos_ingresos['Año'], datos_ingresos['Impuestos sobre el Tabaco'], 
+         color=colores_rojos[7],
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0], label='IT')
+
+# IB
+plt.plot(datos_ingresos['Año'], datos_ingresos['Impuestos sobre Bebidas Alcohólicas'], 
+         color='#FFD700',
+         marker='o', markerfacecolor=colores_rojos[0], markeredgecolor=colores_rojos[0], label='IB')
+
+plt.title('Evolución de la Recaudación en España por componentes de Impuestos Indirectos')
+plt.xlabel('Año')
+plt.ylabel('Recaudación (millones de €)')
+plt.grid(True)
+plt.legend()
+
+# Ajustar las etiquetas del eje y para incluir las unidades completas en millones
+plt.ticklabel_format(style='plain', axis='y')
+plt.gca().set_yticklabels(['{:,}'.format(int(x)) for x in plt.gca().get_yticks()])
+
+# Guardar el gráfico en un archivo
+output_path = 'ruta_a_tu_archivo/evolucion_recaudacion_espana.png'
+plt.savefig(output_path)
+plt.close()
+
+#### COMPARACIÓN INGRESOS Y GASTOS (2007-2022)
+datos_civio_pge = pd.merge(datos_ingresos, datos_gastos, on='Año')
+
+# Evolución de Ingresos vs. Gastos
+plt.figure(figsize=(10, 6))
+plt.plot(datos_civio_pge['Año'], datos_civio_pge['GASTO PÚBLICO TOTAL'], label='GASTO PÚBLICO TOTAL', color='red', linewidth=0.1)
+plt.scatter(datos_civio_pge['Año'], datos_civio_pge['GASTO PÚBLICO TOTAL'], color='red')
+plt.plot(datos_civio_pge['Año'], datos_civio_pge['INGRESOS PÚBLICOS TOTALES'], label='INGRESOS PÚBLICOS TOTALES', color='blue', linewidth=0.1)
+plt.scatter(datos_civio_pge['Año'], datos_civio_pge['INGRESOS PÚBLICOS TOTALES'], color='blue')
+
+plt.title('Evolución de Ingresos y Gastos Públicos Totales en España', fontsize=8)
+plt.xlabel('Año', fontsize=8)
+plt.ylabel('Recaudación y Presupuesto (millones de €)', fontsize=8)
+plt.legend(fontsize=8)
+plt.xticks(fontsize=8)
+plt.yticks(fontsize=8)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+# Evolución de Componentes de Ingresos (Cotizaciones Sociales) vs. Componentes de Gasto (Pensiones)
+plt.figure(figsize=(10, 6))
+plt.plot(datos_civio_pge['Año'], datos_civio_pge['GASTO EN PENSIONES'], label='GASTO EN PENSIONES', color='red', linewidth=0.1)
+plt.scatter(datos_civio_pge['Año'], datos_civio_pge['GASTO EN PENSIONES'], color='red')
+plt.plot(datos_civio_pge['Año'], datos_civio_pge['CCSS'], label='CCSS', color='blue', linewidth=0.1)
+plt.scatter(datos_civio_pge['Año'], datos_civio_pge['CCSS'], color='blue')
+
+plt.title('Evolución de Cotizaciones Sociales y Pensiones en España', fontsize=8)
+plt.xlabel('Año', fontsize=8)
+plt.ylabel('Recaudación y Presupuesto (millones de €)', fontsize=8)
+plt.legend(fontsize=8)
+plt.xticks(fontsize=8)
+plt.yticks(fontsize=8)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
+
+#### AÑO 2023 ####
+# Cargar datos de 2023
+ruta_civio = "ruta_a_tu_archivo/2023_ingresos.xlsx"
+datos_ingresos_2023 = pd.read_excel(ruta_civio, sheet_name="2023_ingresos")
+
+# Crear un vector de colores para las categorías de impuestos (ajustar según tus necesidades)
+colores_ingresos = {
+    "CCSS": "#0000FF",
+    "IRPF": "#ADD8E6",
+    "IVA": "#FF0000",
+    "IS": "#DC143C"
+    # Añade más categorías según sea necesario
+}
+
+# Mapa de Composición de Ingresos
+plt.figure(figsize=(12, 8))
+squarify.plot(
+    sizes=datos_ingresos_2023['Recaudación'],
+    label=datos_ingresos_2023['Tipo de Impuesto'],
+    color=[colores_ingresos.get(tipo, "#999999") for tipo in datos_ingresos_2023['Tipo de Impuesto']],
+    alpha=0.7,
+    edgecolor="white",
+    linewidth=0.5
+)
+plt.title("Composición de Ingresos Públicos de los últimos PGE", fontsize=14)
+plt.axis('off')
+plt.show()
